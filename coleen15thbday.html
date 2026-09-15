@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday 🎂</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a40, #4b286d);
+    color: white;
+}
+
+/* INTRO SCREEN */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background: linear-gradient(135deg, #191633, #4b286d);
+
+    transition: 1s ease;
+}
+
+#intro.hide {
+    opacity: 0;
+    transform: scale(1.2);
+    pointer-events: none;
+}
+
+#intro h1 {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+#intro p {
+    opacity: .8;
+    margin-bottom: 30px;
+}
+
+#openButton {
+    border: none;
+    padding: 16px 35px;
+    border-radius: 50px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    color: white;
+    background: linear-gradient(45deg, #ff5f9e, #8b6cff);
+
+    cursor: pointer;
+
+    box-shadow: 0 0 25px rgba(255, 95, 158, .5);
+
+    transition: .3s;
+}
+
+#openButton:hover {
+    transform: scale(1.08);
+}
+
+#openButton:active {
+    transform: scale(.95);
+}
+
+
+/* MAIN CARD */
+
+#main {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.card {
+    width: min(90%, 600px);
+
+    padding: 40px 30px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,.1);
+
+    border: 1px solid rgba(255,255,255,.2);
+
+    border-radius: 30px;
+
+    backdrop-filter: blur(15px);
+
+    box-shadow: 0 25px 70px rgba(0,0,0,.4);
+
+    opacity: 0;
+
+    transform: translateY(50px);
+
+    transition: 1s ease;
+}
+
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cake {
+    font-size: 80px;
+
+    cursor: pointer;
+
+    display: inline-block;
+
+    transition: .3s;
+}
+
+.cake:hover {
+    transform: scale(1.15);
+}
+
+h1 {
+    font-size: clamp(40px, 8vw, 65px);
+
+    margin: 10px 0;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #ffb5d5,
+        #cbb7ff
+    );
+
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.name {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.message {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.9);
+}
+
+.revealButton {
+    margin-top: 30px;
+
+    padding: 13px 25px;
+
+    border: 1px solid rgba(255,255,255,.3);
+
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.1);
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.revealButton:hover {
+    background: rgba(255,255,255,.25);
+}
+
+.hiddenMessage {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+
+    transition: 1s ease;
+}
+
+.hiddenMessage.show {
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 25px;
+}
+
+
+/* CONFETTI */
+
+.confetti {
+    position: fixed;
+
+    top: -20px;
+
+    width: 10px;
+    height: 20px;
+
+    z-index: 200;
+
+    pointer-events: none;
+
+    animation: fall 4s linear forwards;
+}
+
+@keyframes fall {
+
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+    }
+}
+
+
+/* BALLOONS */
+
+.balloon {
+    position: fixed;
+
+    bottom: -120px;
+
+    width: 55px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    animation: floatUp 10s linear infinite;
+}
+
+.balloon::after {
+    content: "";
+
+    position: absolute;
+
+    width: 1px;
+    height: 100px;
+
+    background: white;
+
+    left: 50%;
+    top: 65px;
+}
+
+.b1 {
+    left: 10%;
+    background: #ff6b9d;
+}
+
+.b2 {
+    left: 30%;
+    background: #7b7cff;
+    animation-delay: 2s;
+}
+
+.b3 {
+    right: 30%;
+    background: #65d9ff;
+    animation-delay: 4s;
+}
+
+.b4 {
+    right: 10%;
+    background: #ffd166;
+    animation-delay: 1s;
+}
+
+@keyframes floatUp {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-120vh);
+    }
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    #intro h1 {
+        font-size: 35px;
+    }
+
+    .card {
+        padding: 30px 20px;
+    }
+
+    .message {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- INTRO -->
+
+<div id="intro">
+
+    <h1>Mornin Kashin... 👀</h1>
+
+    <p>
+        I made a little something for you.
+    </p>
+
+    <button id="openButton">
+        Open it 🎁
+    </button>
+
+</div>
+
+
+<!-- BALLOONS -->
+
+<div class="balloon b1"></div>
+<div class="balloon b2"></div>
+<div class="balloon b3"></div>
+<div class="balloon b4"></div>
+
+
+<!-- MAIN -->
+
+<main id="main">
+
+    <div class="card" id="card">
+
+        <div class="cake" id="cake">
+            🎂
+        </div>
+
+        <h1>
+            Happy 15th Birthday!
+        </h1>
+
+        <!-- CHANGE THE NAME -->
+
+        <div class="name">
+            Coleen ✨
+        </div>
+
+
+        <div class="message">
+
+            I hope today gives you plenty of reasons
+            to smile, laugh, and enjoy yourself. 😊
+
+            <br><br>
+
+            You deserve a really good birthday
+            and an even better year ahead.
+
+        </div>
+
+
+        <button class="revealButton" id="revealButton">
+            One more thing...
+        </button>
+
+
+        <div class="hiddenMessage" id="hiddenMessage">
+
+            I'm glad I got the chance to wish you
+            a happy birthday.
+
+            <br><br> 
+
+            <strong>
+                Always take care of yourself and enjoy your special day kashin! 💗
+            </strong>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   OPEN BUTTON
+========================================= */
+
+const openButton =
+    document.getElementById("openButton");
+
+const intro =
+    document.getElementById("intro");
+
+const card =
+    document.getElementById("card");
+
+
+openButton.addEventListener("click", function() {
+
+    console.log("Open button clicked!");
+
+    intro.classList.add("hide");
+
+    setTimeout(function() {
+
+        card.classList.add("show");
+
+        createConfetti();
+
+    }, 700);
+
+});
+
+
+/* =========================================
+   REVEAL MESSAGE
+========================================= */
+
+const revealButton =
+    document.getElementById("revealButton");
+
+const hiddenMessage =
+    document.getElementById("hiddenMessage");
+
+
+revealButton.addEventListener("click", function() {
+
+    hiddenMessage.classList.add("show");
+
+    createConfetti();
+
+});
+
+
+/* =========================================
+   CAKE CLICK
+========================================= */
+
+const cake =
+    document.getElementById("cake");
+
+
+cake.addEventListener("click", function() {
+
+    cake.style.transform =
+        "scale(1.3) rotate(10deg)";
+
+    createConfetti();
+
+    setTimeout(function() {
+
+        cake.style.transform = "";
+
+    }, 400);
+
+});
+
+
+/* =========================================
+   CONFETTI
+========================================= */
+
+function createConfetti() {
+
+    const colors = [
+        "#ff6b9d",
+        "#ffd166",
+        "#65d9ff",
+        "#8b7cff",
+        "#ffffff"
+    ];
+
+
+    for (let i = 0; i < 100; i++) {
+
+        const piece =
+            document.createElement("div");
+
+        piece.classList.add("confetti");
+
+
+        piece.style.left =
+            Math.random() * 100 + "vw";
+
+
+        piece.style.backgroundColor =
+            colors[
+                Math.floor(
+                    Math.random() * colors.length
+                )
+            ];
+
+
+        piece.style.animationDuration =
+            (2 + Math.random() * 3) + "s";
+
+
+        piece.style.transform =
+            "rotate(" +
+            Math.random() * 360 +
+            "deg)";
+
+
+        document.body.appendChild(piece);
+
+
+        setTimeout(function() {
+
+            piece.remove();
+
+        }, 5000);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
+
